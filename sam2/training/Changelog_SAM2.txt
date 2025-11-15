@@ -1,0 +1,20 @@
+################### Changelog SAM2 ###################
+
+trainer.py:
+class Trainer: 
+- def init: windows compatability
+- def _setup_torch_dist_and_backend: windows compatability
+- def _setup_ddp_distributed_training: windows compatability
+- def _step: calculation and passing of accuracy and iou
+- def val_epoch: capture, calculate and log accuracy and iou
+- def val_epoch: handle blank masks with try except
+- def train_epoch: capture, calculate and log accuracy and iou
+- def _run_step: capture and pass iou from _step to train_epoch
+
+sam2_datasets.py
+Class TorchTrainMixedDataset
+- def get_loader: windows compatability
+
+vos_dataset:
+- _get_datapoint
+- __getitem__

@@ -1,0 +1,8 @@
+train:
+python training/train.py -c configs/sam2.1_training/sam_train_json_win.yaml --use-cluster 0 --num-gpus 1
+
+train_val:
+python training/train.py -c configs/sam2.1_training/sam_train_val_json_win.yaml --use-cluster 0 --num-gpus 1
+
+tensorboard:
+tensorboard --logdir ./sam2_logs 
