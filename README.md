@@ -1,2 +1,3 @@
 # GCS_dataset
-GCS dataset models source code
+Goblet Cell Segmentation dataset models source code
+The GCS dataset is freely available at: https://huggingface.co/datasets/freafin/GCS_dataset
