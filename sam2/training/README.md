@@ -1,3 +1,9 @@
+# Custom Training Code for SAM2 
+This folder contains a customized version of the training code for SAM2 with the capability of running in Windows through any IDE, we have also implemented output of the metrics accuracy and intersection over union. See the Changelog_SAM2.txt for details. 
+
+The original SAM2 Readme follows below. 
+
+
 # Training Code for SAM 2
 
 This folder contains the training code for SAM 2, a foundation model for promptable visual segmentation in images and videos. 
