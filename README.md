@@ -2,7 +2,7 @@
 Goblet Cell Segmentation dataset models source code. <br>
 The GCS dataset is freely available at: <br>
 https://huggingface.co/datasets/freafin/GCS_dataset <br>
-https://zenodo.org/records/18517382 <br>
+https://zenodo.org/records/18642562 <br>
 
 Datadescriptor currently under review at Scientific Data. <br>
 Abstract <br>
