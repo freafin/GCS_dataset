@@ -25,7 +25,7 @@ class SMPDatasetCellpose(Dataset):
         img_path = os.path.join(self.image_dir, img_name)
     
     # Assuming that the mask has the same base name as the image but with a .png extension
-        mask_name = os.path.splitext(img_name)[0] + '_cp_masks.png'
+        mask_name = os.path.splitext(img_name)[0] + '.png'
         mask_path = os.path.join(self.mask_dir, mask_name)
     
         image = Image.open(img_path)

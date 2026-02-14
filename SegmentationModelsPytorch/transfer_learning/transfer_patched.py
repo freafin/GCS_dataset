@@ -21,12 +21,12 @@ import segmentation_models_pytorch as smp
 
 #%% Hyperparams
 
-lr = 0.0001
+lr = 0.01
 weight_decay = 1e-8
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
-batch_size = 4
-epochs = 2000
+batch_size = 16
+epochs = 500
 pin_memory = True
 train_img_dir = "insert_path"
 train_mask_dir = "insert_path"
@@ -90,7 +90,7 @@ metric1.to(device)
 metric2.to(device)
 
 def train():
-    transfer_model = torch.load("insert_path", weights_only=False).to(device) #map_location='cpu', 
+    transfer_model = torch.load("", weights_only=False).to(device) #map_location='cpu', 
     optimizer = optim.Adam(params=transfer_model.parameters(), lr=lr, weight_decay=weight_decay)
     #criterion = nn.BCEWithLogitsLoss() #BCEwithlogits has sigmoid incl. 
     criterion = smp.losses.DiceLoss('binary')
@@ -129,7 +129,7 @@ def train():
             print(f'Accuracy on Epoch {epoch}: {acc}')
             print(f'IOU on Epoch {epoch}: {iou}')
             print(f'Current LR = {current_lr}')
-    torch.save(transfer_model, 'insert_path/{model_name}.pth')
+    torch.save(transfer_model, f'insert_path/{model_name}.pth')
     print('Training complete. Model saved!')
 
 if __name__== '__main__':

@@ -23,3 +23,5 @@ for filename in os.listdir(mask_folder):
 
 print(f"Total instances across all masks: {total_instances}")
 
+
+# %%

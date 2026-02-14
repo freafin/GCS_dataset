@@ -9,8 +9,6 @@ from PIL import Image
 from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import transforms
-#import albumentations as A
-#from albumentations.pytorch import ToTensorV2
 from torchvision.transforms import v2
 from torchmetrics.classification import BinaryJaccardIndex, Accuracy
 import seaborn as sns
@@ -21,18 +19,18 @@ import segmentation_models_pytorch as smp
 
 #%% Hyperparams
 
-lr = 0.0001
+lr = 0.01
 weight_decay = 1e-8
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(device)
-batch_size = 4
-epochs = 1000
+batch_size = 48
+epochs = 500
 pin_memory = True
-train_img_dir = "insert_path"
-train_mask_dir = "insert_path"
-test_img_dir = "insert_path"
-test_mask_dir = "insert_path"
-model_name = f'CP_UNetplusplus_{epochs}Epochs_lr{lr}'
+train_img_dir = "insert_dir"
+train_mask_dir = "insert_dir"
+test_img_dir = "insert_dir"
+test_mask_dir = "insert_dir"
+model_name = f'UNetplusplus_{epochs}Epochs_lr{lr}'
 #%% Instantiate dataset
 
 train_transform = v2.Compose([
@@ -90,7 +88,7 @@ metric1.to(device)
 metric2.to(device)
 
 def train():
-    model = smp.Segformer(
+    model = smp.UnetPlusPlus(
                 encoder_name='resnet34',
                 encoder_weights='imagenet',
                 classes=1,
@@ -98,8 +96,7 @@ def train():
     optimizer = optim.Adam(params=model.parameters(), lr=lr, weight_decay=weight_decay)
     #criterion = nn.BCEWithLogitsLoss() #BCEwithlogits has sigmoid incl. 
     #criterion = smp.losses.DiceLoss('binary')
-    criterion = smp.losses.SoftBCEWithLogitsLoss()
-    #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, patience=5, min_lr=0.00001)                                               
+    criterion = smp.losses.SoftBCEWithLogitsLoss()                                             
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.5) 
     for epoch in range(1, epochs + 1):
         loop = tqdm((train_dl), total=len(train_dl), leave=False)
@@ -133,7 +130,7 @@ def train():
             print(f'Accuracy on Epoch {epoch}: {acc}')
             print(f'IOU on Epoch {epoch}: {iou}')
             print(f'Current LR = {current_lr}')
-    torch.save(model, "insert_path")
+    torch.save(model, f"/{model_name}.pth")
     print('Training complete. Model saved!')
 
 if __name__== '__main__':
@@ -149,7 +146,7 @@ data = pd.DataFrame(list(zip(epoch_losses, epoch_iou)), columns=['Loss', 'IOU'])
 sns.lineplot(data=data)
 
 #%%
-test_model = torch.load(f'path_to_test_model/{model_name}.pth', 
+test_model = torch.load(f'insert_dir/{model_name}.pth', 
                             map_location='cpu', weights_only=False)
 
 #print(f'Model {model_name} loaded.')

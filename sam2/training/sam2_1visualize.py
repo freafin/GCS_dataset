@@ -94,22 +94,6 @@ print("Resized ground truth mask shape:", mask_resized.shape)
 def get_points_for_inference(mask, num_points_fg, num_points_bg):
     """Samples foreground (mask > 0) and background (mask == 0) points."""
     points, labels = [], []
-    #fg_coords = np.argwhere(mask > 0)
-    #if len(fg_coords) > 0:
-    #    num_samples = min(len(fg_coords), num_points_fg)
-    #    sampled_indices = np.random.choice(len(fg_coords), num_samples, replace=False)
-    #    for idx in sampled_indices:
-    #        y, x = fg_coords[idx]
-    #        points.append([float(x), float(y)])  # (x, y)
-    #        labels.append(1)
-    #bg_coords = np.argwhere(mask == 0)
-    #if len(bg_coords) > 0:
-    #    num_samples = min(len(bg_coords), num_points_bg)
-    #    sampled_indices = np.random.choice(len(bg_coords), num_samples, replace=False)
-    #    for idx in sampled_indices:
-    #        y, x = bg_coords[idx]
-    #        points.append([float(x), float(y)])
-    #        labels.append(0)
     fg_coords = np.argwhere(mask > 0)
     bg_coords = np.argwhere(mask == 0)
 
